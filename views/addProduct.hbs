@@ -6,9 +6,9 @@
             <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="tm-block-title d-inline-block" style="color: orange">Edit Product</h2>
+                        <h2 class="tm-block-title d-inline-block" style="color: orange">Add Product</h2>
 
-                        <form action="/products/{{product._id}}/update" method="post" id="form">
+                        <form action="/products/add" method="post" id="form">
                             <div class="col-12">
                                 <div class="form-group mb-3 col-sm-12">
                                     <label for="name">Product Name</label>
@@ -16,7 +16,7 @@
                                             id="name"
                                             name="name"
                                             type="text"
-                                            value="{{product.name}}"
+                                            value="Input here"
                                             class="form-control validate"
                                     />
                                 </div>
@@ -27,7 +27,7 @@
                                             name="description"
                                             rows="5"
                                             required
-                                    >{{product.description}}</textarea>
+                                    >Input here</textarea>
                                 </div>
                                 <div class="form-group mb-3 col-sm-6">
                                     <label for="name">Price</label>
@@ -35,7 +35,7 @@
                                             id="price"
                                             name="price"
                                             type="text"
-                                            value="{{product.price}}"
+                                            value="Input here"
                                             class="form-control validate"
                                     />
                                 </div>
@@ -53,25 +53,22 @@
                                             id="stock"
                                             name="stock"
                                             type="text"
-                                            value="{{product.stock}}"
+                                            value="Input here"
                                             class="form-control validate"
                                     />
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="stock">Image </label>
-                                    {{#each product.image}}
                                         <input
-                                                id="{{increase @index}}"
                                                 name="image"
                                                 type="text"
-                                                value="{{this}}"
+                                                value="Input here"
                                                 class="form-control validate space"
                                         >
-                                    {{/each}}
                                 </div>
                             </div>
                             <div class="col-12 align-content-center">
-                                <button type="submit" class="btn btn-primary col-4">UPDATE</button>
+                                <button type="submit" class="btn btn-primary col-4">CREATE</button>
                             </div>
                         </form>
                     </div>
@@ -80,15 +77,3 @@
         </div>
     </div>
 </div>
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-<!--<script>-->
-<!--    function add(){-->
-<!--        var total = parseInt($('#total_chq').val())+1;-->
-<!--        var new_input='<input id="{{increase product.image}}" name="image" type="text" value="Input source image here" class="form-control validate space" />';-->
-<!--        $('#input_here').append(new_input);-->
-<!--    }-->
-<!--    function remove(){-->
-<!--        $('#new_'+last_chq_no).remove();-->
-<!--    }-->
-<!--</script>-->
