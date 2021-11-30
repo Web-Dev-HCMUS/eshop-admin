@@ -7,8 +7,28 @@ exports.list = async function(req, res){
     res.render('products', { products: mongooseObject.multipleMongooseToObject(products) });
 };
 
-exports.oneProduct = async function(req, res){
+exports.detail = async function(req, res){
     const product = await productService.oneProduct(req.params.slug);
+    const category = await productService.categories();
 
-    res.render('detail', { product: mongooseObject.mongooseToObject(product) });
+     res.render('detail', {
+        product: mongooseObject.mongooseToObject(product),
+        category: mongooseObject.multipleMongooseToObject(category)
+    });
+};
+
+exports.create = async function(req, res){
+
+}
+
+exports.add = async function(req, res){
+
+};
+
+exports.update = async function(req, res){
+
+};
+
+exports.delete = async function(req, res){
+
 };

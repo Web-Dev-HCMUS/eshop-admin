@@ -1,46 +1,58 @@
+<link rel="stylesheet" href="/css/style.css">
+
 <div class="container tm-mt-big tm-mb-big">
     <div class="row">
-        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 mx-auto">
             <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="tm-block-title d-inline-block">Edit Product</h2>
-                    </div>
-                </div>
+                        <h2 class="tm-block-title d-inline-block" style="color: orange">Edit Product</h2>
 
-                <div class="row tm-edit-product-row">
-                    <div class="col-xl-6 col-lg-6 col-md-12">
-                        <form action="" method="post" class="tm-edit-product-form">
-                            <div class="form-group mb-3">
-                                <label for="name">Product Name</label>
-                                <input
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        value="{{product.name}}"
-                                        class="form-control validate"
-                                />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="description">Description</label>
-                                <textarea
-                                        class="form-control validate tm-small"
-                                        name="description"
-                                        rows="5"
-                                        required
-                                >{{product.description}}</textarea>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="category">Type</label>
-                                <select class="custom-select tm-select-accounts" id="type" value="{{product.type}}">
-                                    <option>Select category</option>
-                                    <option value="1" >New Arrival</option>
-                                    <option value="2">Most Popular</option>
-                                    <option value="3">Trending</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <form action="/" method="post" id="form">
+                            <div class="col-12">
+                                <div class="form-group mb-3 col-sm-12">
+                                    <label for="name">Product Name</label>
+                                    <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            value="{{product.name}}"
+                                            class="form-control validate"
+                                    />
+                                </div>
+                                <div class="form-group mb-3 col-sm-12">
+                                    <label for="description">Description</label>
+                                    <textarea
+                                            class="form-control validate tm-small"
+                                            name="description"
+                                            rows="5"
+                                            required
+                                    >{{product.description}}</textarea>
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label for="name">Price</label>
+                                    <input
+                                            id="price"
+                                            name="price"
+                                            type="text"
+                                            value="{{product.price}}"
+                                            class="form-control validate"
+                                    />
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
+                                    <label for="category">Type</label>
+                                    <select class="custom-select tm-select-accounts" id="type" name="type" onchange="form.form.submit()">
+                                        {{#each category}}
+                                            {{#if compare this.type product.type}}
+                                                <option value="{{product.type}}">{{product.type}}</option>
+                                            {{else}}
+                                                <option value="{{this.type}}">{{this.type}}</option>
+                                            {{/if}}
+
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3 col-sm-6">
                                     <label for="stock">Units In Stock</label>
                                     <input
                                             id="stock"
@@ -50,30 +62,38 @@
                                             class="form-control validate"
                                     />
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="stock">Image </label>
+                                    {{#each product.image}}
+                                        <input
+                                                id="{{increase @index}}"
+                                                name="image"
+                                                type="text"
+                                                value="{{this}}"
+                                                class="form-control validate space"
+                                        >
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="col-12 align-content-center">
+                                <button type="submit" class="btn btn-primary col-4">UPDATE</button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                                <div class="tm-product-img-edit mx-auto">
-                                    <img src="{{product}}" alt="Product image" class="img-fluid d-block mx-auto">
-                                    <i class="fas fa-cloud-upload-alt tm-upload-icon"
-                                       onclick="document.getElementById('fileInput').click();"></i>
-                                </div>
-                                <div class="custom-file mt-3 mb-3">
-                                    <input id="fileInput" type="file" style="display:none;" />
-                                    <input
-                                            type="button"
-                                            class="btn btn-primary btn-block mx-auto"
-                                            value="CHANGE IMAGE NOW"
-                                            onclick="document.getElementById('fileInput').click();"
-                                    />
-                                </div>
-                            </div>
-                    <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
-                            </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+<!--<script>-->
+<!--    function add(){-->
+<!--        var total = parseInt($('#total_chq').val())+1;-->
+<!--        var new_input='<input id="{{increase product.image}}" name="image" type="text" value="Input source image here" class="form-control validate space" />';-->
+<!--        $('#input_here').append(new_input);-->
+<!--    }-->
+<!--    function remove(){-->
+<!--        $('#new_'+last_chq_no).remove();-->
+<!--    }-->
+<!--</script>-->
