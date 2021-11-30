@@ -1,0 +1,48 @@
+<!-- Table here -->
+<div class="container mt-5">
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-10 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="tm-product-table-container">
+                    <table class="table table-hover tm-table-small tm-product-table">
+                        <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {{#each products}}
+                            <tr>
+                                <th scope="row"><input type="checkbox" /></th>
+                                <td><a href="/products/{{this.slug}}" class="btn-outline-success">{{this.name}}</a></td>
+                                <td>{{this.price}}</td>
+                                <td>{{this.stock}}</td>
+                                <td>{{this.type}}</td>
+                                <td>
+                                    <a href="/" class="tm-product-delete-link">
+                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table container -->
+                <a
+                        href="/products/add"
+                        class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+                <button class="btn btn-primary btn-block text-uppercase">
+                    Delete selected products
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
