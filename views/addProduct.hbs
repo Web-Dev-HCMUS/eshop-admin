@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="/css/style.css">
 
 <div class="container tm-mt-big tm-mb-big">
-    <div class="row">
+    <div>
+        <a href="/products" class="btn btn-primary ml-2 mr-5" style="border-radius: 10px">
+            <i class="fas fa-chevron-circle-left">  Back to products</i>
+        </a>
+    </div>
+    <div class="row mt-4">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 mx-auto">
             <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                 <div class="row">
@@ -16,7 +21,8 @@
                                             id="name"
                                             name="name"
                                             type="text"
-                                            value="Input here"
+                                            placeholder="Input here ..."
+                                            value=""
                                             class="form-control validate"
                                     />
                                 </div>
@@ -26,8 +32,10 @@
                                             class="form-control validate tm-small"
                                             name="description"
                                             rows="5"
+                                            placeholder="Input here ..."
+                                            value=""
                                             required
-                                    >Input here</textarea>
+                                    ></textarea>
                                 </div>
                                 <div class="form-group mb-3 col-sm-6">
                                     <label for="name">Price</label>
@@ -35,7 +43,8 @@
                                             id="price"
                                             name="price"
                                             type="text"
-                                            value="Input here"
+                                            placeholder="Input here ..."
+                                            value=""
                                             class="form-control validate"
                                     />
                                 </div>
@@ -53,22 +62,24 @@
                                             id="stock"
                                             name="stock"
                                             type="text"
-                                            value="Input here"
+                                            placeholder="Input here ..."
+                                            value=""
                                             class="form-control validate"
                                     />
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 col-sm-12">
                                     <label for="stock">Image </label>
                                         <input
                                                 name="image"
                                                 type="text"
-                                                value="Input here"
+                                                placeholder="Input here ..."
+                                                value=""
                                                 class="form-control validate space"
                                         >
                                 </div>
                             </div>
-                            <div class="col-12 align-content-center">
-                                <button type="submit" class="btn btn-primary col-4">CREATE</button>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-auto mt-5  align-content-center">
+                                <button type="submit" class="btn btn-primary col-4" style="border-radius: 10px">CREATE</button>
                             </div>
                         </form>
                     </div>

@@ -60,7 +60,7 @@ button:focus {
   margin-top: 20px;
 }
 .tm-block-col {
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .tm-block {
   padding: 40px;
@@ -430,7 +430,7 @@ input[type="checkbox"]:focus {
   box-shadow: none;
 }
 .tm-block-products {
-  min-height: 725px;
+  min-height: 825px;
 }
 .tm-block-product-categories {
   min-height: 650px;

@@ -1,10 +1,27 @@
+
 <!-- Table here -->
 <div class="container mt-5">
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-10 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="input-group mb-4">
+                    <form action="/products/search" method="get" class="input-group mb-4">
+                        <div class="form-outline col-xl-6">
+                            <input type="text" name="q"
+                                   placeholder="Search here ..."
+                                   class="form-control"
+                                   style="border-radius: 10px"/>
+                        </div>
+                        <button href="/products/search"
+                           class="btn btn-primary ml-2 mr-5"
+                           style="border-radius: 10px"
+                           >
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
                 <div class="tm-product-table-container">
-                    <table class="table table-hover tm-table-small tm-product-table">
+                    <table class="table table-hover tm-table-small tm-product-table" >
                         <thead>
                         <tr>
                             <th scope="col">&nbsp;</th>
@@ -25,8 +42,8 @@
                                 <td>{{this.stock}}</td>
                                 <td>{{this.type}}</td>
                                 <td>
-                                    <a href="/" class="tm-product-delete-link">
-                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                    <a href="/products/{{this._id}}/delete" class="tm-product-delete-link">
+                                        <i class="fas fa-trash tm-product-delete-icon"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -35,14 +52,48 @@
                         </tbody>
                     </table>
                 </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" style="border-radius: 10px">Previous</a>
+                        </li>
+
+                        {{#for 1 totalPage 1}}
+                            <li class="page-item">
+                                <a id="page{{this}}" class="page-link" href="/products?page={{this}}" style="border-radius: 10px;">{{this}}</a>
+                            </li>
+                        {{/for}}
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" style="border-radius: 10px">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
                 <!-- table container -->
-                <a
-                        href="/products/add"
-                        class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
-                <button class="btn btn-primary btn-block text-uppercase">
-                    Delete selected products
-                </button>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-auto mt-5  align-content-center">
+                    <a href="/products/add" class="btn btn-primary col-4" style="border-radius: 10px">
+                        Add new product
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+<script>
+    links = document.querySelectorAll("a")
+    links.forEach(function (item) {
+        item.addEventListener('click', function () {
+            //reset the color of other links
+            links.forEach(function (item) {
+                item.style.backgroundColor = '#fff'
+            })
+            // apply the style to the link
+            this.style.backgroundColor = '#ffcce9'
+        });
+    })
+
+</script>

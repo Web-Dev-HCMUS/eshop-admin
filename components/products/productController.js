@@ -1,10 +1,15 @@
 const productService = require('./productService');
 const mongooseObject = require('../../ulti/mongoose');
+const Product = require("../../models/Product");
 
 exports.list = async function(req, res, next){
-    const products = await productService.list();
+    const countPage = await productService.countDoc() % 5 + 1;
+    const products = await productService.list(req.query.page || 1);
 
-    res.render('products', { products: mongooseObject.multipleMongooseToObject(products) });
+    res.render('products', {
+        products: mongooseObject.multipleMongooseToObject(products),
+        totalPage: countPage
+    });
 };
 
 exports.detail = async function(req, res, next){
@@ -17,21 +22,29 @@ exports.detail = async function(req, res, next){
     });
 };
 
-exports.add = function(req, res, next){
-    productService.add(req).then(() => res.redirect('/products'))
-        .catch(next);
-}
-
 exports.create = async function(req, res, next){
     const category = await productService.categories();
     res.render('addProduct', {category: mongooseObject.multipleMongooseToObject(category)});
 };
 
-exports.update = async function(req, res, next){
-    await productService.update(req).then(() => res.redirect('/products'))
+exports.store = function(req, res, next){
+    productService.storeToDatabase(req).then(() => res.redirect('/products'))
+                            .catch(next);
+};
+
+exports.update = function(req, res, next){
+    productService.updateOneFromDatabase(req).then(() => res.redirect('/products'))
                                 .catch(next);
 };
 
-exports.delete = async function(req, res){
+exports.delete = function(req, res, next){
+    productService.deleteOutOfDatabase(req).then(() => res.redirect('/products'))
+                                .catch(next);
+};
 
+exports.search = async function(req, res, next){
+    //res.send(req.query.q);
+    const products = await productService.searchProduct(req);
+
+    res.render('products', { products: mongooseObject.multipleMongooseToObject(products) });
 };

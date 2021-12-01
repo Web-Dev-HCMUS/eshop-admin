@@ -6,6 +6,7 @@ const logger = require('morgan');
 const {create} = require('express-handlebars');
 const route = require('./routes');
 
+
 const app = express();
 
 const hbs = create({
@@ -15,9 +16,16 @@ const hbs = create({
         getValue: (obj, idx) => obj[idx],
         length: (obj) => obj.length,
         increase: (n) => n+1,
-        compare: (obj1, obj2) => ob1.compare(obj2) === 0,
+        getPage: (total, limit) => total % limit + 1,
+        for: function(from, to, incr, block) {
+            let accum = '';
+            for(let i = from; i <= to; i += incr)
+                accum += block.fn(i);
+            return accum;
+        },
     }
 });
+
 app.engine('hbs', hbs.engine);
 
 // view engine setup
