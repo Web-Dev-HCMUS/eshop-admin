@@ -4,3 +4,10 @@
 .center{
     text-align: center;
 }
+.paginationStyle{
+    border-radius: 10px;
+    font-size: 15px;
+}
+.activeCurrent {
+    background-color: orange !important;
+}

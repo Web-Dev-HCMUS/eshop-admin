@@ -3,12 +3,14 @@ const mongooseObject = require('../../ulti/mongoose');
 const Product = require("../../models/Product");
 
 exports.list = async function(req, res, next){
-    const countPage = await productService.countDoc() % 5 + 1;
+    const totalDoc = await productService.countDoc();
+    const totalPage = Math.ceil(totalDoc / 5);
+
     const products = await productService.list(req.query.page || 1);
 
     res.render('products', {
         products: mongooseObject.multipleMongooseToObject(products),
-        totalPage: countPage
+        totalPage: totalPage
     });
 };
 
@@ -43,8 +45,10 @@ exports.delete = function(req, res, next){
 };
 
 exports.search = async function(req, res, next){
-    //res.send(req.query.q);
-    const products = await productService.searchProduct(req);
+    const {totalDoc, result} = await productService.searchProduct(req, req.query.page || 1);
 
-    res.render('products', { products: mongooseObject.multipleMongooseToObject(products) });
+    res.render('products', {
+        products: mongooseObject.multipleMongooseToObject(result),
+        totalPage: Math.ceil(totalDoc / 5)
+    });
 };

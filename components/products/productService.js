@@ -18,6 +18,17 @@ exports.storeToDatabase = async (req) => {
 
 exports.deleteOutOfDatabase = (req) => Product.deleteOne({_id:req.params.id});
 
-exports.searchProduct = (req) => Product.find({name:{
-    $regex: new RegExp(req.query.q, "ig")
-}});
+exports.searchProduct = async (req, page) => {
+    const totalDoc = await Product.find({
+    name: {$regex: new RegExp(req.query.name, "ig")}
+    }).count();
+
+    const result = await Product.find({
+        name: {$regex: new RegExp(req.query.name, "ig")}
+    }).skip(5 * (page-1)).limit(5);
+
+    return {
+        totalDoc: totalDoc,
+        result: result
+    }
+};
