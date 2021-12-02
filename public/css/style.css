@@ -11,3 +11,8 @@
 .activeCurrent {
     background-color: orange !important;
 }
+.add-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
