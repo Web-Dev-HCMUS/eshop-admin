@@ -1,93 +1,189 @@
-<link rel="stylesheet" href="/css/style.css">
+
 <!-- Table here -->
-<div class="container mt-5">
-    <div class="row tm-content-row">
-        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-10 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block tm-block-products">
-                <div class="input-group mb-4">
-                    <form action="/products/search" method="get" class="input-group mb-4">
-                        <div class="form-outline col-xl-6">
-                            <input type="text" name="name"
-                                   placeholder="Search here ..."
-                                   class="form-control"
-                                   style="border-radius: 10px"/>
+<!--<div class="container mt-5">-->
+<!--    <div class="row tm-content-row">-->
+<!--        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-10 tm-block-col">-->
+<!--            <div class="tm-bg-primary-dark tm-block tm-block-products">-->
+<!--                <div class="input-group mb-4">-->
+<!--                    <form action="/products/search" method="get" class="input-group mb-4">-->
+<!--                        <div class="form-outline col-xl-6">-->
+<!--                            <input type="text" name="name"-->
+<!--                                   placeholder="Search here ..."-->
+<!--                                   class="form-control"-->
+<!--                                   style="border-radius: 10px"/>-->
+<!--                        </div>-->
+<!--                        <button type="submit"-->
+<!--                           class="btn btn-primary ml-2 mr-5"-->
+<!--                           style="border-radius: 10px"-->
+<!--                           >-->
+<!--                            <i class="fas fa-search"></i>-->
+<!--                        </button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="tm-product-table-container">-->
+<!--                    <table class="table table-hover tm-table-small tm-product-table" >-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">&nbsp;</th>-->
+<!--                            <th scope="col">Name</th>-->
+<!--                            <th scope="col">Price</th>-->
+<!--                            <th scope="col">Stock</th>-->
+<!--                            <th scope="col">Type</th>-->
+<!--                            <th scope="col">&nbsp;</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+
+<!--                        {{#each products}}-->
+<!--                            <tr>-->
+<!--                                <th scope="row"><input type="checkbox" /></th>-->
+<!--                                <td><a href="/products/{{this.slug}}" class="btn-outline-success">{{this.name}}</a></td>-->
+<!--                                <td>{{this.price}}</td>-->
+<!--                                <td>{{this.stock}}</td>-->
+<!--                                <td>{{this.type}}</td>-->
+<!--                                <td>-->
+<!--                                    <a href="/products/{{this._id}}/delete"-->
+<!--                                       class="tm-product-delete-link"-->
+<!--                                       type="button"-->
+<!--                                       data-id="{{this._id}}"-->
+<!--                                       data-toggle="modal"-->
+<!--                                       data-target="#deleteProductModal">-->
+<!--                                        <i class="fas fa-trash tm-product-delete-icon"></i>-->
+<!--                                    </a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        {{/each}}-->
+
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+
+<!--                <div class="navigation">-->
+<!--                    <ul class="pagination justify-content-center">-->
+<!--                        <li class="page-item">-->
+<!--                            <a class="page-link paginationStyle">First</a>-->
+<!--                        </li>-->
+
+<!--                        {{#for 1 totalPage 1}}-->
+<!--                            <li class="page-item">-->
+<!--                                <a id="page-item"-->
+<!--                                   class="page-link paginationStyle"-->
+<!--                                   >{{this}}-->
+<!--                                   </a>-->
+<!--                            </li>-->
+<!--                        {{/for}}-->
+
+<!--                        <li class="page-item">-->
+<!--                            <a class="page-link paginationStyle">Last</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+
+<!--                <div class="col-12 col-s-12 mt-5">-->
+<!--                    <a href="/products/add" class="btn btn-primary col-4 add-btn" style="border-radius: 10px">-->
+<!--                        Add new product-->
+<!--                    </a>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title mb-3">Basic Table</h4>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <h3>Products table</h3>
+
+                    <form action="/products/search" method="get" class="input-group justify-content-end">
+                        <div class="form-outline">
+                            <input name="name" type="search" id="form1" class="form-control" />
                         </div>
-                        <button type="submit"
-                           class="btn btn-primary ml-2 mr-5"
-                           style="border-radius: 10px"
-                           >
+                        <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-                </div>
-                <div class="tm-product-table-container">
-                    <table class="table table-hover tm-table-small tm-product-table" >
-                        <thead>
-                        <tr>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
 
-                        {{#each products}}
-                            <tr>
-                                <th scope="row"><input type="checkbox" /></th>
-                                <td><a href="/products/{{this.slug}}" class="btn-outline-success">{{this.name}}</a></td>
-                                <td>{{this.price}}</td>
-                                <td>{{this.stock}}</td>
-                                <td>{{this.type}}</td>
-                                <td>
-                                    <a href="/products/{{this._id}}/delete"
-                                       class="tm-product-delete-link"
-                                       type="button"
-                                       data-id="{{this._id}}"
-                                       data-toggle="modal"
-                                       data-target="#deleteProductModal">
-                                        <i class="fas fa-trash tm-product-delete-icon"></i>
+                    <div class="table-responsive">
+                        <table class="table text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Product Name</th>
+                                    <th class="border-top-0">Price</th>
+                                    <th class="border-top-0">Stock</th>
+                                    <th class="border-top-0">Sold</th>
+                                    <th class="border-top-0">Type</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            {{#each products}}
+                                <tr>
+                                    <td>{{increase @index 1}}</td>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.price}}</td>
+                                    <td>{{this.stock}}</td>
+                                    <td>...</td>
+                                    <td>{{this.type}}</td>
+                                    <td><a href="/products/{{this._id}}/delete"
+                                        type="button"
+                                        data-id="{{this._id}}"
+                                        data-toggle="modal"
+                                        data-target="#deleteProductModal">
+                                        <i class="fas fa-trash" style="color: red"></i>
                                     </a>
-                                </td>
-                            </tr>
-                        {{/each}}
+                                    </td>
+                                </tr>
+                            {{/each}}
 
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link paginationStyle">First</a>
-                        </li>
-
-                        {{#for 1 totalPage 1}}
+                    <div class="navigation">
+                        <ul class="pagination justify-content-center">
                             <li class="page-item">
-                                <a id="page-item"
-                                   class="page-link paginationStyle"
-                                   >{{this}}
-                                   </a>
+                                <a class="page-link paginationStyle">First</a>
                             </li>
-                        {{/for}}
 
-                        <li class="page-item">
-                            <a class="page-link paginationStyle">Last</a>
-                        </li>
-                    </ul>
+                            {{#for 1 totalPage 1}}
+                                <li class="page-item">
+                                    <a id="page-item"
+                                       class="page-link paginationStyle"
+                                    >{{this}}
+                                    </a>
+                                </li>
+                            {{/for}}
+
+                            <li class="page-item">
+                                <a class="page-link paginationStyle">Last</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="col-12 col-s-12 mt-5">
-                    <a href="/products/add" class="btn btn-primary col-4 add-btn" style="border-radius: 10px">
-                        Add new product
-                    </a>
-                </div>
-
             </div>
         </div>
     </div>
+    <!-- End Container fluid  -->
+
+    <!-- footer -->
+    <footer class="footer text-center"> 2021 © <a
+            href="https://www.wrappixel.com/">Pixie Store Admin</a>
+    </footer>
+    <!-- End footer -->
 </div>
 
 {{!-- Modal --}}
@@ -114,7 +210,6 @@
 {{!-- Delete hidden form --}}
 <form method="POST" name="deleteProductForm"></form>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function(){
         let productId;
@@ -133,6 +228,7 @@
         };
     });
 </script>
+
 
 <script type="text/javascript">
     const currentLocation = location.href;
