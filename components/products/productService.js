@@ -1,6 +1,8 @@
 const Product = require('../../models/Product');
 const Category = require('../../models/Category')
 
+const perPage = 5;
+
 exports.list = (page) => Product.find({}, null,{ skip: 5 * (page-1) }).limit(5);
 
 exports.countDoc = () => Product.find({}).count();
@@ -29,6 +31,7 @@ exports.searchProduct = async (req, page) => {
 
     return {
         totalDoc: totalDoc,
-        result: result
+        result: result,
+        perPage: perPage
     }
 };

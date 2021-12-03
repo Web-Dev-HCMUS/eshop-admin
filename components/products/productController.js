@@ -34,6 +34,10 @@ exports.store = function(req, res, next){
                             .catch(next);
 };
 
+exports.edit = function(req, res, next){
+    res.send("edit");
+};
+
 exports.update = function(req, res, next){
     productService.updateOneFromDatabase(req).then(() => res.redirect('/products'))
                                 .catch(next);
@@ -45,10 +49,15 @@ exports.delete = function(req, res, next){
 };
 
 exports.search = async function(req, res, next){
-    const {totalDoc, result} = await productService.searchProduct(req, req.query.page || 1);
+    const {totalDoc, result, perPage} = await productService.searchProduct(req, req.query.page || 1);
 
     res.render('products', {
         products: mongooseObject.multipleMongooseToObject(result),
-        totalPage: Math.ceil(totalDoc / 5)
+        totalPage: Math.ceil(totalDoc / 5),
+        queryName: req.query.name,
+        page: {
+            num: req.query.page || 1,
+            perPage: perPage
+        }
     });
 };
