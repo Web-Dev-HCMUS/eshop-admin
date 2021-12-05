@@ -1,0 +1,128 @@
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title mb-3">Product detail</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <!-- Content here -->
+                    <div>
+                        <a href="/products" class="btn btn-primary ml-2 mr-5" style="border-radius: 20%">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 mx-auto">
+                            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div  style="text-align: center;">
+                                            <h2 class="tm-block-title d-inline-block" style="color: orange; text-align: center;">
+                                                Create Product
+                                            </h2>
+                                        </div>
+
+                                        <form action="/products/add" method="post" id="form">
+                                            <div class="col-12">
+                                                <div class="form-group mb-3 col-sm-12">
+                                                    <label for="name">Product Name</label>
+                                                    <input
+                                                            id="name"
+                                                            name="name"
+                                                            type="text"
+                                                            placeholder="Input name here..."
+                                                            class="form-control validate"
+                                                            required
+                                                    />
+                                                </div>
+                                                <div class="form-group mb-3 col-sm-12">
+                                                    <label for="description">Description</label>
+                                                    <textarea
+                                                            class="form-control validate tm-small"
+                                                            placeholder="Input description here..."
+                                                            name="description"
+                                                            rows="5"
+                                                            required
+                                                    ></textarea>
+                                                </div>
+                                                <div class="form-group mb-3 col-sm-6">
+                                                    <label for="name">Price</label>
+                                                    <input
+                                                            id="price"
+                                                            name="price"
+                                                            type="text"
+                                                            placeholder="Input Price here..."
+                                                            class="form-control validate"
+                                                            required
+                                                    />
+                                                </div>
+                                                <div class="form-group mb-3 col-sm-6">
+                                                    <label for="category">Type</label>
+                                                    <select class="form-select" id="type" name="type" onchange="form.form.submit()" required>
+                                                        <option selected>Select type of product</option>
+                                                        {{#each category}}
+                                                            <option value="{{this.type}}">{{this.type}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-3 col-sm-6">
+                                                    <label for="stock">Units In Stock</label>
+                                                    <input
+                                                            id="stock"
+                                                            name="stock"
+                                                            type="text"
+                                                            placeholder="Input stock here..."
+                                                            class="form-control validate"
+                                                            required
+                                                    />
+                                                </div>
+                                                <div class="form-group mb-3 col-sm-12">
+                                                    <label for="stock">Image </label>
+                                                        <input
+                                                                id=""
+                                                                name="image"
+                                                                type="text"
+                                                                placeholder="Input image link here..."
+                                                                class="form-control validate space"
+                                                                required
+                                                        >
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-s-12 mt-5"  style="text-align: center;">
+                                                <button type="submit" class="btn btn-warning col-4 add-btn" style="border-radius: 10px">
+                                                    CREATE
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                        <div class="mt-4" style="text-align: center; color: limegreen">
+                                            {{#if updateSuccess}}
+                                                <h2>Update product successfully!</h2>
+                                            {{/if}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+
+    <!-- footer -->
+    <footer class="footer text-center"> 2021 © <a
+            href="https://www.wrappixel.com/">Pixie Store Admin</a>
+    </footer>
+    <!-- End footer -->
+</div>
+

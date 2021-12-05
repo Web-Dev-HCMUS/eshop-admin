@@ -8,7 +8,7 @@ exports.list = async function(req, res, next){
 
     const products = await productService.list(req.query.page || 1);
 
-    res.render('products', {
+    res.render('../components/products/views/products', {
         products: mongooseObject.multipleMongooseToObject(products),
         totalPage: totalPage
     });
@@ -26,7 +26,7 @@ exports.detail = async function(req, res, next){
 
 exports.create = async function(req, res, next){
     const category = await productService.categories();
-    res.render('addProduct', {category: mongooseObject.multipleMongooseToObject(category)});
+    res.render('../components/products/views/add', {category: mongooseObject.multipleMongooseToObject(category)});
 };
 
 exports.store = function(req, res, next){
@@ -34,13 +34,29 @@ exports.store = function(req, res, next){
                             .catch(next);
 };
 
-exports.edit = function(req, res, next){
-    res.send("edit");
+exports.edit = async function(req, res, next){
+    const product = await productService.findOneProductById(req.params._id);
+    const category = await productService.categories();
+
+    const updateSuccess = req.query.success !== undefined;
+
+    res.render('../components/products/views/edit', {
+        product: mongooseObject.mongooseToObject(product),
+        category: mongooseObject.multipleMongooseToObject(category),
+        updateSuccess
+    });
 };
 
 exports.update = function(req, res, next){
-    productService.updateOneFromDatabase(req).then(() => res.redirect('/products'))
-                                .catch(next);
+    const product = {
+        ... req.body,
+        _id: req.params._id}
+
+    productService.updateOneFromDatabase(req)
+        .then(() => {
+            res.redirect(`/products/${product._id}/edit?success`)
+        })
+        .catch(next);
 };
 
 exports.delete = function(req, res, next){
@@ -51,7 +67,7 @@ exports.delete = function(req, res, next){
 exports.search = async function(req, res, next){
     const {totalDoc, result, perPage} = await productService.searchProduct(req, req.query.page || 1);
 
-    res.render('products', {
+    res.render('../components/products/views/products', {
         products: mongooseObject.multipleMongooseToObject(result),
         totalPage: Math.ceil(totalDoc / 5),
         queryName: req.query.name,

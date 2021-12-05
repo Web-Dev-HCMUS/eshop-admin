@@ -77,19 +77,11 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <li class="in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
-
                         <li>
-                            <a class="profile-pic" href="/profile">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                     class="img-circle"><span class="text-white font-medium">Hello, {{user}}</span></a>
+                            <a class="profile-pic" href="/account">
+                                <img src="" alt="user-img" width="36"
+                                     class="img-circle"><span class="text-white font-medium">Hello, {{user.fullname}}
+                            </span></a>
                         </li>
                     </ul>
                 </div>
@@ -116,7 +108,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profile"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/account"
                                aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Profile</span>
@@ -130,14 +122,21 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin-list"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/account/list"
                                aria-expanded="false">
                                 <i class="fas fa-address-book" aria-hidden="true"></i>
                                 <span class="hide-menu">Admin list</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/register"
+                               aria-expanded="false">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                <span class="hide-menu">Create account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/auth/logout"
                                aria-expanded="false">
                                 <i class="fas fa-power-off" aria-hidden="true"></i>
                                 <span class="hide-menu">Log out</span>

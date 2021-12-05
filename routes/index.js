@@ -1,10 +1,17 @@
 const createError = require("http-errors");
 const homeRouter = require('../components/home');
 const productsRouter = require('../components/products');
+const authRouter = require('../components/auth')
+const loggedInUserGuard = require('../middlewares/loggedInIserGuard')
+const registerRouter = require('../components/register')
+const profileRouter = require('../components/profile')
 
 function route(app){
-  app.use('/products', productsRouter);
-  app.use('/', homeRouter);
+  app.use('/auth', authRouter);
+  app.use('/account', loggedInUserGuard, profileRouter);
+  app.use('/register', loggedInUserGuard, registerRouter);
+  app.use('/products', loggedInUserGuard, productsRouter);
+  app.use('/', loggedInUserGuard, homeRouter);
 
 // catch 404 and forward to error handler
   app.use(function(req, res, next) {
@@ -19,7 +26,7 @@ function route(app){
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error', {layout: false});
   });
 }
 

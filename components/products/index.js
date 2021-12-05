@@ -7,12 +7,11 @@ router.get('/search', productsController.search);
 router.get('/add', productsController.create);
 router.post('/add', productsController.store);
 
-router.get('/:id/edit', productsController.edit);
-router.post('/:id/update', productsController.update);
+router.get('/:_id/edit', productsController.edit);
+router.post('/:_id/update', productsController.update);
 
-router.post('/:id/delete', productsController.delete);
+router.post('/:_id/delete', productsController.delete);
 
-router.get('/:slug', productsController.detail);
 router.get('/', productsController.list);
 
 module.exports = router;

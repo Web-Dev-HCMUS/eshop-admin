@@ -1,8 +1,9 @@
+<link href="/css/myStyle.css" rel="stylesheet">
 <div class="page-wrapper">
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title mb-3">Basic Table</h4>
+                <h4 class="page-title mb-3">Admin List</h4>
             </div>
         </div>
         <!-- /.col-lg-12 -->
@@ -12,11 +13,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <h3>Products table</h3>
+                    <h3>Account table</h3>
 
-                    <form action="/products/search" method="get" class="input-group justify-content-end">
+                    <form action="/account/list/search" method="get" class="input-group justify-content-end">
                         <div class="form-outline">
-                            <input name="name" type="search" value="{{queryName}}" class="form-control" />
+                            <input name="q" type="search" placeholder="Search..." value="{{queryName}}" class="form-control" />
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
@@ -28,33 +29,40 @@
                             <thead>
                                 <tr >
                                     <th class="border-top-0">#</th>
-                                    <th class="border-top-0" >Product Name {{page.num}} {{page.perPage}}</th>
-                                    <th class="border-top-0">Price</th>
-                                    <th class="border-top-0">Stock</th>
-                                    <th class="border-top-0">Sold</th>
-                                    <th class="border-top-0">Type</th>
-                                    <th class="border-top-0" style="text-align: center; vertical-align: middle;">Action</th>
+                                    <th class="border-top-0" >Username</th>
+                                    <th class="border-top-0">Full name</th>
+                                    <th class="border-top-0">Email</th>
+                                    <th class="border-top-0">Level</th>
+                                    <th class="border-top-0" style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                            {{#each products}}
+                            {{#each admins}}
                                 <tr>
                                     <td>{{indexProduct @index}}</td>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.price}}</td>
-                                    <td>{{this.stock}}</td>
-                                    <td>...</td>
-                                    <td>{{this.type}}</td>
+                                    <td>
+                                        <a class="" href="/account/{{this._id}}">
+                                            {{this.username}}
+                                        </a>
+                                    </td>
+                                    <td>{{this.fullname}}</td>
+                                    <td>{{this.email}}</td>
+                                    <td>{{this.level}}</td>
                                     <td style="text-align: center; vertical-align: middle;">
+                                        <a href="/account/{{this._id}}"
+                                           type="button"
+                                           class="btn btn-outline-warning">
+                                            Update
+                                        </a>
                                         <a type="button"
                                            class="btn btn-outline-danger"
+                                           style="border-radius: 50%;"
                                            data-id="{{this._id}}"
                                            data-bs-toggle="modal"
-                                           data-bs-target="#deleteProductModal">Delete</a>
-                                        <a href="/products/{{this._id}}/edit"
-                                           type="button"
-                                           class="btn btn-warning">Update</a>
+                                           data-bs-target="#deleteAccountModal">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {{/each}}
@@ -63,23 +71,23 @@
                         </table>
                     </div>
 
-                    <div class="navigation">
+                    <div class="navigation mb-4">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link paginationStyle">First</a>
+                            <li class="page-item pagination">
+                                <a class="">&laquo;</a>
                             </li>
 
                             {{#for 1 totalPage 1}}
-                                <li class="page-item">
+                                <li class="page-item pagination">
                                     <a id="page-item"
-                                       class="page-link paginationStyle"
+                                       class=""
                                     >{{this}}
                                     </a>
                                 </li>
                             {{/for}}
 
-                            <li class="page-item">
-                                <a class="page-link paginationStyle">Last</a>
+                            <li class="page-item pagination">
+                                <a class="">&raquo;</a>
                             </li>
                         </ul>
                     </div>
@@ -97,7 +105,7 @@
 </div>
 
 {{!-- Modal --}}
-<div class="modal fade" id="deleteProductModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="deleteAccountModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -110,7 +118,7 @@
                 Do you want to delete this product ?
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-product" type="button" class="btn btn-outline-danger">Delete</button>
+                <button id="btn-account-product" type="button" class="btn btn-outline-danger">Delete</button>
                 <button type="button" class="btn btn-outline-inverse" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -118,23 +126,23 @@
 </div>
 
 {{!-- Delete hidden form --}}
-<form method="POST" name="deleteProductForm"></form>
+<form method="POST" name="deleteAccountForm"></form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
-        let productId;
-        let deleteForm = document.forms['deleteProductForm'];
+        let accountId;
+        let deleteForm = document.forms['deleteAccountForm'];
 
-        $('#deleteProductModal').on('show.bs.modal', function (event) {
+        $('#deleteAccountModal').on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget);
             console.log(button);
-            productId = button.data('id');
+            accountId = button.data('id');
         });
 
-        let btnDeleteProduct = document.getElementById('btn-delete-product');
+        let btnDeleteAccount = document.getElementById('btn-account-product');
 
-        btnDeleteProduct.onclick = function() {
-            deleteForm.action = '/products/' + productId + '/delete';
+        btnDeleteAccount.onclick = function() {
+            deleteForm.action = '/account/' + accountId + '/delete';
             deleteForm.submit();
         };
     });
@@ -162,13 +170,13 @@
         }
 
         if(pageItem[i].href === currentLocation){
-            pageItem[i].className += " activeCurrent";
+            pageItem[i].className += "active";
             flag = 1;
         }
     }
 
     if(flag === 0){
-        pageItem[0].className += " activeCurrent";
+        pageItem[0].className += "active";
     }
 </script>
 

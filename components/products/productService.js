@@ -9,16 +9,18 @@ exports.countDoc = () => Product.find({}).count();
 
 exports.oneProduct = (slug) => Product.findOne({slug:slug});
 
+exports.findOneProductById = (id) => Product.findOne({_id:id});
+
 exports.categories = () => Category.find({});
 
-exports.updateOneFromDatabase = (req) => Product.updateOne({_id:req.params.id}, req.body);
+exports.updateOneFromDatabase = (req) => Product.updateOne({_id:req.params._id}, req.body);
 
 exports.storeToDatabase = async (req) => {
     const product = new Product(req.body);
     await product.save();
 };
 
-exports.deleteOutOfDatabase = (req) => Product.deleteOne({_id:req.params.id});
+exports.deleteOutOfDatabase = (req) => Product.deleteOne({_id:req.params._id});
 
 exports.searchProduct = async (req, page) => {
     const totalDoc = await Product.find({

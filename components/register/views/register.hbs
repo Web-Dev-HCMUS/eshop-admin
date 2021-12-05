@@ -1,0 +1,95 @@
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title mb-3">Register</h4>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <h3>Register for admin account</h3>
+
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <form accept="" class="shadow p-4" action="/register" method="post">
+                                    <div class="mb-3">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Password">Password</label>
+                                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="fullname">Full name</label>
+                                        <input type="text" class="form-control" name="fullname" placeholder="Full name" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control" name="address" placeholder="Address" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" name="phone" placeholder="Phone number" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="level">Authority level</label>
+                                        <div class="dropdown">
+                                            <select class="form-select" id="level" name="level" onchange="form.form.submit()" required>
+                                                <option value="1">Highest permission</option>
+                                                <option value="2">Medium permission</option>
+                                                <option value="3">Low permission</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <hr>
+                                    <div class="mb-3" style=" text-align: center;">
+                                        <button type="submit" class="btn btn-warning col-5">Register</button>
+                                    </div>
+                                    <hr>
+
+                                    {{#if success}}
+                                        <div class="mt-4" style=" text-align: center; color: limegreen">
+                                            <h2>{{success}}</h2>
+                                        </div>
+                                    {{/if}}
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+
+    <!-- footer -->
+    <footer class="footer text-center"> 2021 © <a
+            href="https://www.wrappixel.com/">Pixie Store Admin</a>
+    </footer>
+    <!-- End footer -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
