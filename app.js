@@ -16,7 +16,7 @@ const hbs = create({
     helpers: {
         getValue: (obj, idx) => obj[idx],
         length: (obj) => obj.length,
-        indexProduct: (arrIdx) => arrIdx + 1,
+        increaseIndex: (arrIdx) => arrIdx + 1,
         getPage: (total, limit) => total % limit + 1,
         for: function(from, to, incr, block) {
             let accum = '';

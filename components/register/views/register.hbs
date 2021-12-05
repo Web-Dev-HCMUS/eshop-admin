@@ -66,9 +66,15 @@
                                     </div>
                                     <hr>
 
-                                    {{#if success}}
+                                    {{#if createSuccess}}
                                         <div class="mt-4" style=" text-align: center; color: limegreen">
-                                            <h2>{{success}}</h2>
+                                            <h2>Create successfully!</h2>
+                                        </div>
+                                    {{/if}}
+
+                                    {{#if usernameExist}}
+                                        <div class="mt-4" style=" text-align: center; color: red">
+                                            <h2>Username is existing!</h2>
                                         </div>
                                     {{/if}}
 

@@ -1,10 +1,15 @@
 const Admin = require('../../models/Admin')
+const bcrypt = require("bcrypt");
 
 const perPage = 5;
 
 exports.findAdminById = (id) => Admin.findOne({_id: id}).lean();
 
-exports.updateOneFromDatabase = (req) => Admin.updateOne({_id:req.params._id}, req.body);
+exports.updateOneFromDatabase = async (req) => {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    console.log(req.body);
+    await Admin.updateOne({_id:req.params._id}, req.body);
+}
 
 exports.deleteOutOfDatabase = (req) => Admin.deleteOne({_id:req.params._id});
 

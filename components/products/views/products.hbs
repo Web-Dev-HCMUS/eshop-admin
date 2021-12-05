@@ -41,7 +41,7 @@
 
                             {{#each products}}
                                 <tr>
-                                    <td>{{indexProduct @index}}</td>
+                                    <td>{{increaseIndex @index}}</td>
                                     <td>
                                         <a class="" href="/products/{{this._id}}/edit">
                                             {{this.name}}

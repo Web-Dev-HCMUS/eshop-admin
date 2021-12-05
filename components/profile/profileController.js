@@ -16,7 +16,7 @@ exports.show = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     await profileService.updateOneFromDatabase(req)
-        .then(() => {res.redirect(`/account?update-success`)})
+        .then(() => {res.redirect(`/account/${req.params._id}?update-success`)})
         .catch(next);
 }
 

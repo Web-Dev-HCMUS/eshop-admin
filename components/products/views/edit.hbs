@@ -83,11 +83,11 @@
                                                     <label for="stock">Image </label>
                                                     {{#each product.image}}
                                                         <input
-                                                                id="{{indexProduct @index}}"
+                                                                id="{{increaseIndex @index}}"
                                                                 name="image"
                                                                 type="text"
                                                                 value="{{this}}"
-                                                                class="form-control validate space"
+                                                                class="form-control validate  mt-2"
                                                                 required
                                                         >
                                                     {{/each}}
