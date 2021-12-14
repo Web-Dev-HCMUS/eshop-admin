@@ -5,11 +5,13 @@ const authRouter = require('../components/auth')
 const loggedInUserGuard = require('../middlewares/loggedInIserGuard')
 const registerRouter = require('../components/register')
 const profileRouter = require('../components/profile')
+const customerRouter = require('../components/customer');
 
 function route(app){
   app.use('/auth', authRouter);
   app.use('/account', loggedInUserGuard, profileRouter);
   app.use('/register', loggedInUserGuard, registerRouter);
+  app.use('/customer', loggedInUserGuard, customerRouter);
   app.use('/products', loggedInUserGuard, productsRouter);
   app.use('/', loggedInUserGuard, homeRouter);
 

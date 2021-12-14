@@ -13,7 +13,7 @@ exports.updateOneFromDatabase = async (req) => {
 
 exports.deleteOutOfDatabase = (req) => Admin.deleteOne({_id:req.params._id});
 
-exports.list = (page) => Admin.find({}, null,{ skip: 5 * (page-1) }).limit(5);
+exports.list = (page) => Admin.find({}, null,{ skip: perPage * (page-1) }).limit(perPage);
 
 exports.countDoc = () => Admin.find({}).count();
 
@@ -24,7 +24,7 @@ exports.searchProfile = async (req, page) => {
 
     const result = await Admin.find({
         username: {$regex: new RegExp(req.query.q, "ig")}
-    }).skip(5 * (page-1)).limit(5);
+    }).skip(perPage * (page-1)).limit(perPage);
 
     return {
         totalDoc: totalDoc,

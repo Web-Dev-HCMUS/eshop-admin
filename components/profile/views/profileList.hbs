@@ -1,4 +1,4 @@
-<link href="/css/myStyle.css" rel="stylesheet">
+ <link href="/css/myStyle.css" rel="stylesheet">
 <div class="page-wrapper">
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
@@ -142,7 +142,7 @@
         let btnDeleteAccount = document.getElementById('btn-account-product');
 
         btnDeleteAccount.onclick = function() {
-            deleteForm.action = '/account/' + accountId + '/delete';
+            deleteForm.action = '/account/' + accountId + '/delete' + '?redirect=' + window.location.href;
             deleteForm.submit();
         };
     });

@@ -21,7 +21,7 @@ exports.update = async (req, res, next) => {
 }
 
 exports.delete = function(req, res, next){
-    profileService.deleteOutOfDatabase(req).then(() => res.redirect('/account/list'))
+    profileService.deleteOutOfDatabase(req).then(() => res.redirect(req.query.redirect))
         .catch(next);
 };
 

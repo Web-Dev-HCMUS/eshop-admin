@@ -60,8 +60,9 @@ exports.update = function(req, res, next){
 };
 
 exports.delete = function(req, res, next){
-    productService.deleteOutOfDatabase(req).then(() => res.redirect('/products'))
-                                .catch(next);
+    productService.deleteOutOfDatabase(req)
+        .then(() => res.redirect(req.query.redirect))
+        .catch(next);
 };
 
 exports.search = async function(req, res, next){
