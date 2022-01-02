@@ -206,6 +206,9 @@
         })
 
         function updateStatus(status){
+            if(status !== 'ordered'){
+                $(`#delete-order-btn`).remove()
+            }
             let flag = 0;
             const statusItem = document.querySelectorAll('#status-item');
             for(let i = 0; i<statusItem.length; i++){

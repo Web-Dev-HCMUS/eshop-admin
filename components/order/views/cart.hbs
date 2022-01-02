@@ -81,10 +81,6 @@
                             </li>
                         </ul>
                     </div>
-
-                    <div class="mt-4" style=" text-align: center;">
-                        <a href="/products/add" class="btn btn-success col-3">Add product</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -97,51 +93,6 @@
     </footer>
     <!-- End footer -->
 </div>
-
-{{!-- Modal --}}
-<div class="modal fade" id="deleteProductModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Do you want to delete this product ?
-            </div>
-            <div class="modal-footer">
-                <button id="btn-delete-product" type="button" class="btn btn-outline-danger">Delete</button>
-                <button type="button" class="btn btn-outline-inverse" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{!-- Delete hidden form --}}
-<form method="POST" name="deleteProductForm"></form>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function(){
-        let productId;
-        let deleteForm = document.forms['deleteProductForm'];
-
-        $('#deleteProductModal').on('show.bs.modal', function (event) {
-            const button = $(event.relatedTarget);
-            console.log(button);
-            productId = button.data('id');
-        });
-
-        let btnDeleteProduct = document.getElementById('btn-delete-product');
-
-        const cur = window.location.href;
-        btnDeleteProduct.onclick = function() {
-            deleteForm.action = '/products/' + productId + '/delete' + '?redirect=' + window.location.href;
-            deleteForm.submit();
-        };
-    });
-</script>
 
 <script type="text/javascript">
     const currentLocation = location.href;
