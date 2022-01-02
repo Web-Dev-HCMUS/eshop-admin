@@ -24,7 +24,7 @@
 
                     <div  style="text-align: center;">
                         <h2 class="tm-block-title d-inline-block" style="color: orange; text-align: center;">
-                            Order Information username : {{order.username}}
+                            Order Information
                         </h2>
                     </div>
                     <div  style="text-align: center;">
@@ -214,7 +214,15 @@
             for(let i = 0; i<statusItem.length; i++){
                 if(flag === 0){
                     statusItem[i].className = 'active';
-                    $(`#${statusItem[i].getAttribute('value')}`).remove()
+                    $(`#${statusItem[i].getAttribute('value')}`).remove();
+
+                    const para = document.createElement("h4");
+                    const node = document.createTextNode(`${statusItem[i].getAttribute('value')}`);
+                    para.appendChild(node);
+
+                    if(statusItem[i].getElementsByTagName('h4').length === 0){
+                        statusItem[i].appendChild(para);
+                    }
                 }
                 if(statusItem[i].getAttribute('value').includes(status)){
                     flag = 1;
