@@ -24,6 +24,7 @@ const hbs = create({
                 accum += block.fn(i);
             return accum;
         },
+        numberWithCommas: (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
     }
 });
 

@@ -3,7 +3,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title mb-3">Customer List</h4>
+                <h4 class="page-title mb-3">Order</h4>
             </div>
         </div>
         <!-- /.col-lg-12 -->
@@ -13,11 +13,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <h3>Account table</h3>
+                    <h3>Order table</h3>
 
-                    <form action="/customer/search" method="get" class="input-group justify-content-end">
+                    <form action="/products/search" method="get" class="input-group justify-content-end">
                         <div class="form-outline">
-                            <input name="q" type="search" placeholder="Search..." value="{{queryName}}" class="form-control" />
+                            <input name="name" type="search" value="{{queryName}}" class="form-control" />
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
@@ -28,46 +28,31 @@
                         <table class="table text-nowrap">
                             <thead>
                                 <tr >
-                                    <th class="border-top-0 df">#</th>
+                                    <th class="border-top-0">#</th>
                                     <th class="border-top-0" >Username</th>
-                                    <th class="border-top-0">Name</th>
-                                    <th class="border-top-0">Email</th>
+                                    <th class="border-top-0">Total Order</th>
                                     <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Order Date</th>
                                     <th class="border-top-0" style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                            {{#each customers}}
+                            {{#each carts}}
                                 <tr>
                                     <td>{{increaseIndex @index}}</td>
                                     <td>
-                                        <a class="" href="/customer/{{this._id}}">
+                                        <a class="" href="/customer/user/{{this.username}}">
                                             {{this.username}}
                                         </a>
                                     </td>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.email}}</td>
-                                    {{#if this.status}}
-                                        <td id="account-status" style="color: limegreen">Active</td>
-                                    {{else}}
-                                        <td id="account-status" style="color: red">Lock</td>
-                                    {{/if}}
+                                    <td>{{numberWithCommas this.orderTotal}}</td>
+                                    <td>{{this.status}}</td>
+                                    <td>{{this.createdAt}}</td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <a type="button"
-                                           style="border-radius: 50%;"
-                                           data-id="{{this._id}}"
-                                           data-status="{{this.status}}"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#lockAccountModal"
-                                            {{#if this.status}}
-                                                class="btn btn-outline-danger">
-                                                <i class=" fas fa-lock"></i>
-                                            {{else}}
-                                                class="btn btn-outline-success">
-                                                <i class=" fas fa-lock-open"></i>
-                                            {{/if}}
-                                        </a>
+                                        <a href="/order/{{this._id}}"
+                                           type="button"
+                                           class="btn btn-outline-info">View Order</a>
                                     </td>
                                 </tr>
                             {{/each}}
@@ -96,12 +81,15 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="mt-4" style=" text-align: center;">
+                        <a href="/products/add" class="btn btn-success col-3">Add product</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Container fluid  -->
-    <p class="example1"><strong>Bấm vào đây</strong> <i>để lấy nội dung</i></p>
 
     <!-- footer -->
     <footer class="footer text-center"> 2021 © <a
@@ -111,7 +99,7 @@
 </div>
 
 {{!-- Modal --}}
-<div class="modal fade" id="lockAccountModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="deleteProductModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,11 +108,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="modal-message">
-
+            <div class="modal-body">
+                Do you want to delete this product ?
             </div>
             <div class="modal-footer">
-                <button id="btn-lock-account" type="button" class="btn btn-outline-danger">Lock</button>
+                <button id="btn-delete-product" type="button" class="btn btn-outline-danger">Delete</button>
                 <button type="button" class="btn btn-outline-inverse" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -132,34 +120,25 @@
 </div>
 
 {{!-- Delete hidden form --}}
-<form method="POST" name="lockAccountForm"></form>
+<form method="POST" name="deleteProductForm"></form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
-        let accountId;
-        let status;
-        let lockForm = document.forms['lockAccountForm'];
+        let productId;
+        let deleteForm = document.forms['deleteProductForm'];
 
-        $('#lockAccountModal').on('show.bs.modal', function (event) {
+        $('#deleteProductModal').on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget);
-            accountId = button.data('id');
-
-            if(button[0].dataset.status === 'true'){
-                $("#btn-lock-account").html("Lock");
-                $("#modal-message").html("Do you want to Lock this account!");
-                status = "false";
-            } else {
-                $("#btn-lock-account").html("Unlock");
-                $("#modal-message").html("Do you want to Unlock this account!");
-                status = "true"
-            }
+            console.log(button);
+            productId = button.data('id');
         });
 
-        let btnLockAccount = document.getElementById('btn-lock-account');
+        let btnDeleteProduct = document.getElementById('btn-delete-product');
 
-        btnLockAccount.onclick = function() {
-            lockForm.action = '/customer/' + accountId + '?status=' + status + '&redirect=' + window.location.href;
-            lockForm.submit();
+        const cur = window.location.href;
+        btnDeleteProduct.onclick = function() {
+            deleteForm.action = '/products/' + productId + '/delete' + '?redirect=' + window.location.href;
+            deleteForm.submit();
         };
     });
 </script>
@@ -196,11 +175,7 @@
     }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!--
-<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
--->
+

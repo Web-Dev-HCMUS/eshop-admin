@@ -1,0 +1,234 @@
+<link rel="stylesheet" href="/css/cart.css">
+<link rel="stylesheet" href="/css/checkout.css">
+<link rel="stylesheet" href="/css/purchase.css">
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title mb-3">Order detail</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <!-- Content here -->
+                    <div>
+                        <a href="/order" class="btn btn-primary ml-2 mr-5" style="border-radius: 20%">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+
+                    <div  style="text-align: center;">
+                        <h2 class="tm-block-title d-inline-block" style="color: orange; text-align: center;">
+                            Order Information username : {{order.username}}
+                        </h2>
+                    </div>
+                    <div  style="text-align: center;">
+                        <h3 class="tm-block-title d-inline-block" style="color: orange; text-align: center;">
+                            username : {{order.username}}
+                        </h3>
+                    </div>
+
+                    <div class="bodyC">
+                        <div class="CartContainer">
+                            {{#each order.products}}
+                                <div class="Cart-Items" id="{{this._id}}">
+                                    <div class="image-box">
+                                        <img src="{{this.image}}" style="height:120px" />
+                                    </div>
+                                    <div class="about">
+                                        <h1 class="title" style="font-size: 18px;">{{this.name}}</h1>
+                                        <h3 class="price">{{numberWithCommas this.price}} VND</h3>
+                                    </div>
+                                    <div class="counter">
+                                        <label class="count" style="border: none; font-size: 18px;">
+                                            x{{this.quantity}}
+                                        </label>
+                                    </div>
+                                    <div class="prices">
+                                        <div id="totalPrice{{this._id}}" class="amount" style="font-size: 18px;">
+                                            {{numberWithCommas this.totalPrice}} VND
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                            <hr>
+                            <div class="checkout">
+                                <div class="total">
+                                    <div>
+                                        <div class="Subtotal" style="font-size: 20px;">Order total</div>
+                                    </div>
+                                    <div id="orderTotal" class="total-amount" style="font-size: 20px;">
+                                        {{numberWithCommas order.orderTotal}} VNĐ
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="CheckoutBody">
+                        <div class="wrapperCheckout">
+                            <div class="containerCheckout">
+                                <form>
+                                    <h1>
+                                        <i class="fas fa-shipping-fast"></i>
+                                        Shipping Details
+                                    </h1>
+                                    <div class="name">
+                                        <div>
+                                            <label for="f-name">First Name</label>
+                                            <input type="text" value="{{order.deliveryInformation.firstName}}" disabled>
+                                        </div>
+                                        <div>
+                                            <label for="l-name">Last Name</label>
+                                            <input type="text" value="{{order.deliveryInformation.lastName}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="street">
+                                        <label for="name">Street</label>
+                                        <input type="text" value="{{order.deliveryInformation.street}}" disabled>
+                                    </div>
+                                    <div class="address-info">
+                                        <div>
+                                            <label for="city">District</label>
+                                            <input type="text" value="{{order.deliveryInformation.district}}" disabled>
+                                        </div>
+                                        <div>
+                                            <label for="state">City/Province</label>
+                                            <input type="text" value="{{order.deliveryInformation.city}}" disabled>
+                                        </div>
+                                        <div>
+                                            <label for="zip">Zip</label>
+                                            <input type="text" value="{{order.deliveryInformation.zip}}" disabled>
+                                        </div>
+                                    </div>
+                                    <h1>
+                                        <i class="far fa-credit-card"></i> Payment Information
+                                    </h1>
+                                    <div class="cc-num">
+                                        <label for="card-num">Credit Card No.</label>
+                                        <input type="text" value="{{order.checkoutInformation.creditCardNumber}}" disabled>
+                                    </div>
+                                    <div class="cc-info">
+                                        <div>
+                                            <label for="card-num">Exp</label>
+                                            <input type="text" value="{{order.checkoutInformation.expire}}" disabled>
+                                        </div>
+                                        <div>
+                                            <label for="card-num">CCV</label>
+                                            <input type="text" value="{{order.checkoutInformation.ccv}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="total-pay">
+                                        <label>Total Payment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <label>{{numberWithCommas order.orderTotal}} VND</label>
+                                    </div>
+                                    <h1>
+                                        <i class="fas fa-bell"></i> Status Information
+                                    </h1>
+                                    <div class="status-label">
+                                        <label>Status: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <div class="card card-timeline px-2 border-none">
+                                            <ul class="bs4-order-tracking">
+                                                <li id="status-item" class="step" value="ordered">
+                                                    <div><i class="fas fa-cart-arrow-down"></i></div>
+                                                    <a id="ordered" class="btn btn-outline-danger mt-2">Ordered</a>
+                                                </li>
+                                                <li id="status-item" class="step" value="transit">
+                                                    <div><i class="fas fa-box"></i></div>
+                                                    <a id="transit" class="btn btn-outline-danger mt-2">Transit</a>
+                                                </li>
+                                                <li id="status-item" class="step" value="delivery">
+                                                    <div><i class="fas fa-truck"></i></div>
+                                                    <a id="delivery" class="btn btn-outline-danger mt-2">Delivery</a>
+                                                </li>
+                                                <li id="status-item" class="step" value="completed">
+                                                    <div><i class="fas fa-clipboard-check"></i></div>
+                                                    <a id="completed" class="btn btn-outline-danger mt-2" disabled="disabled">Completed</a>
+                                                </li>
+                                            </ul>
+                                            <label id="status" hidden>{{order.status}}</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="btns">
+                                        <button id="delete-order-btn">Cancel Order</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4" style="text-align: center; color: limegreen">
+                        {{#if updateSuccess}}
+                            <h2>Update product successfully!</h2>
+                        {{/if}}
+                    </div>
+                    <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+
+    <!-- footer -->
+    <footer class="footer text-center"> 2021 © <a
+            href="https://www.wrappixel.com/">Pixie Store Admin</a>
+    </footer>
+    <!-- End footer -->
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#ordered').on('click', function (event) {
+            updateStatus('ordered');
+
+            $.get('/order/{{order._id}}/update?status=ordered');
+        })
+        $('#transit').on('click', function (event) {
+            updateStatus('transit');
+
+            $.get('/order/{{order._id}}/update?status=transit');
+        })
+        $('#delivery').on('click', function (event) {
+            updateStatus('delivery');
+
+            $.get('/order/{{order._id}}/update?status=delivery');
+        })
+        $('#completed').on('click', function (event) {
+            updateStatus('completed');
+
+            $.get('/order/{{order._id}}/update?status=completed');
+        })
+
+        function updateStatus(status){
+            let flag = 0;
+            const statusItem = document.querySelectorAll('#status-item');
+            for(let i = 0; i<statusItem.length; i++){
+                if(flag === 0){
+                    statusItem[i].className = 'active';
+                    $(`#${statusItem[i].getAttribute('value')}`).remove()
+                }
+                if(statusItem[i].getAttribute('value').includes(status)){
+                    flag = 1;
+                    continue;
+                }
+                if(flag === 1){
+                    statusItem[i].className = '';
+                }
+            }
+        }
+
+        updateStatus($('#status')[0].textContent);
+
+        $('#delete-order-btn').on('click', function (event) {
+            window.location.href = '/order/{{order._id}}/deleted';
+        })
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

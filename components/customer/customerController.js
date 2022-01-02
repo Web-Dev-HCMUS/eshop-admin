@@ -18,10 +18,18 @@ exports.setStatus = async (req, res, next) => {
     res.redirect(req.query.redirect);
 }
 
-exports.show = async (req, res, next) => {
+exports.showById = async (req, res, next) => {
     const customerId = req.params._id? req.params._id : req.user._id;
 
     const customer = await customerService.findCustomerById(customerId);
+
+    res.render('../components/customer/views/profile', {
+        customer: customer,
+    });
+}
+
+exports.showByUsername = async (req, res, next) => {
+    const customer = await customerService.findCustomerByUsername(req.params.username);
 
     res.render('../components/customer/views/profile', {
         customer: customer,

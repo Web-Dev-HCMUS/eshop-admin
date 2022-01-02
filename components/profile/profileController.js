@@ -20,6 +20,28 @@ exports.update = async (req, res, next) => {
         .catch(next);
 }
 
+exports.changePassword = async (req, res, next) => {
+    const status = await profileService.updatePassword(req);
+
+    if(status){
+        res.redirect(`/account/${req.params._id}/change-password?update-success`);
+    } else{
+        res.redirect(`/account/${req.params._id}/change-password?update-fail`);
+    }
+}
+
+exports.changePasswordPage = async (req, res, next) => {
+    const adminId = req.params._id? req.params._id : req.user._id;
+    const admin = await profileService.findAdminById(adminId);
+    const updateSuccess = req.query['update-success'] !== undefined;
+    const updateFail = req.query['update-fail'] !== undefined;
+    res.render('../components/profile/views/changePassword', {
+        admin: admin,
+        updateSuccess,
+        updateFail
+    });
+}
+
 exports.delete = function(req, res, next){
     profileService.deleteOutOfDatabase(req).then(() => res.redirect(req.query.redirect))
         .catch(next);

@@ -30,8 +30,9 @@ exports.create = async function(req, res, next){
 };
 
 exports.store = function(req, res, next){
-    productService.storeToDatabase(req).then(() => res.redirect('/products'))
-                            .catch(next);
+    console.log(req.body)
+    // productService.storeToDatabase(req).then(() => res.redirect('/products'))
+    //                         .catch(next);
 };
 
 exports.edit = async function(req, res, next){
