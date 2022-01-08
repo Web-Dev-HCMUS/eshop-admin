@@ -37,7 +37,7 @@
                                     <th class="border-top-0" style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody  id="table">
 
                             {{#each products}}
                                 <tr>
@@ -49,7 +49,7 @@
                                     </td>
                                     <td>{{numberWithCommas this.price}}</td>
                                     <td>{{this.stock}}</td>
-                                    <td>...</td>
+                                    <td>{{this.sold}}</td>
                                     <td>{{this.type}}</td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <a href="/products/{{this._id}}/edit"
@@ -147,7 +147,6 @@
 
         let btnDeleteProduct = document.getElementById('btn-delete-product');
 
-        const cur = window.location.href;
         btnDeleteProduct.onclick = function() {
             deleteForm.action = '/products/' + productId + '/delete' + '?redirect=' + window.location.href;
             deleteForm.submit();
@@ -161,10 +160,8 @@
     const pageLength = pageItem.length;
     let flag = 0;
     let curr = 1;
-
     for(let i = 0; i<pageLength; i++){
         let searchParams = new URLSearchParams(window.location.search);
-
         if(!searchParams.has('page')){
             if(!searchParams.has('name')){
                 pageItem[i].href = location.href + '?page=' + (i + 1);
@@ -175,13 +172,11 @@
             const result = location.href.toString().replace(/page=[0-9]/, 'page='+ (i+1))
             pageItem[i].href = result;
         }
-
         if(pageItem[i].href === currentLocation){
             pageItem[i].className += "active";
             flag = 1;
         }
     }
-
     if(flag === 0){
         pageItem[0].className += "active";
     }

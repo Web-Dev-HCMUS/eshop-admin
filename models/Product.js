@@ -4,13 +4,14 @@ const slug = require('mongoose-slug-generator');
 const Schema = mongoose.Schema;
 
 const Product = new Schema({
-    name: { type : String , required: true },
-    price: { type : String },
-    description: { type : String },
-    stock: { type : String },
-    slug: { type: String, slug: 'name', unique: true},
-    image: { type : Array },
-    type: {type: String},
+    name: { type: String, required: true },
+    price: { type: Number },
+    description: { type: String },
+    stock: { type: Number },
+    sold: { type: Number },
+    slug: { type: String, slug: "name", unique: true },
+    image: { type: Array },
+    type: { type: String }
 },{timestamps: true});
 
 // Add plugin

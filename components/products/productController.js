@@ -2,9 +2,11 @@ const productService = require('./productService');
 const mongooseObject = require('../../ulti/mongoose');
 const Product = require("../../models/Product");
 
+const perPage = 9;
+
 exports.list = async function(req, res, next){
     const totalDoc = await productService.countDoc();
-    const totalPage = Math.ceil(totalDoc / 5);
+    const totalPage = Math.ceil(totalDoc / perPage);
 
     const products = await productService.list(req.query.page || 1);
 
@@ -29,10 +31,9 @@ exports.create = async function(req, res, next){
     res.render('../components/products/views/add', {category: mongooseObject.multipleMongooseToObject(category)});
 };
 
-exports.store = function(req, res, next){
-    console.log(req.body)
-    // productService.storeToDatabase(req).then(() => res.redirect('/products'))
-    //                         .catch(next);
+exports.store = async function(req, res, next){
+    await productService.storeToDatabase(req);
+    res.redirect('/products');
 };
 
 exports.edit = async function(req, res, next){
@@ -71,7 +72,7 @@ exports.search = async function(req, res, next){
 
     res.render('../components/products/views/products', {
         products: mongooseObject.multipleMongooseToObject(result),
-        totalPage: Math.ceil(totalDoc / 5),
+        totalPage: Math.ceil(totalDoc / perPage),
         queryName: req.query.name,
         page: {
             num: req.query.page || 1,
